@@ -3,6 +3,7 @@ import { Button, Form } from "react-bootstrap";
 
 const Register = ({ onRegister }) => {
   const newCode = useRef(103);
+  const refName = useRef(null);
 
   const [product, setProduct] = useState({
     code: newCode.current,
@@ -19,6 +20,12 @@ const Register = ({ onRegister }) => {
     });
   };
 
+  const onKeyDown = (e) => {
+    if (e.key === "Enter") {
+      onClick();
+    }
+  };
+
   const onClick = () => {
     if (name === "" || price === "" || qnt === "") {
       alert("상품정보를 입력하세요!");
@@ -31,6 +38,7 @@ const Register = ({ onRegister }) => {
           price: "",
           qnt: "",
         });
+        refName.current.focus();
       }
     }
   };
@@ -50,6 +58,7 @@ const Register = ({ onRegister }) => {
         placeholder="상품이름"
         className="mb-2"
         onChange={onChange}
+        ref={refName}
       />
       <Form.Control
         value={price}
@@ -59,6 +68,7 @@ const Register = ({ onRegister }) => {
         onChange={onChange}
       />
       <Form.Control
+        onKeyDown={onKeyDown}
         value={qnt}
         name="qnt"
         placeholder="판매수량"
