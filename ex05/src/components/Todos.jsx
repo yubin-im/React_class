@@ -37,7 +37,7 @@ const Todos = () => {
           {todos.map((todo) => (
             <tr>
               <td>
-                <input type="checkbox" />
+                <input type="checkbox" checked={todo.completed} />
               </td>
               <td>{todo.id}</td>
               <td>{todo.title}</td>
