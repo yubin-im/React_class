@@ -8,9 +8,13 @@ const Locals = () => {
   const [page, setPage] = useState(1);
   const [end, setEnd] = useState(false);
   const [query, setQuery] = useState("인하대학교");
+  const [size, setSize] = useState(10);
+  const [loading, setLoading] = useState(false);
 
   const callAPI = async () => {
-    const url = `https://dapi.kakao.com/v2/local/search/keyword.json?query=${query}&size=10&page=${page}`;
+    setLoading(true);
+
+    const url = `https://dapi.kakao.com/v2/local/search/keyword.json?query=${query}&size=${size}&page=${page}`;
     const config = {
       headers: {
         Authorization: "KakaoAK 29e9e1950348691f626373bb936f8182",
@@ -22,12 +26,12 @@ const Locals = () => {
 
     setLocals(data.documents);
     setEnd(data.meta.is_end);
-    console.log(res.data);
+    setLoading(false);
   };
 
   useEffect(() => {
     callAPI();
-  }, [page]);
+  }, [page, size]);
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -37,6 +41,8 @@ const Locals = () => {
       callAPI();
     }
   };
+
+  if (loading) return <h1 className="my-5">로딩중...</h1>;
 
   return (
     <div className="mx-5">
@@ -51,6 +57,16 @@ const Locals = () => {
               <Button type="submit">검색</Button>
             </InputGroup>
           </form>
+        </Col>
+
+        <Col md={3}>
+          <Form.Select onChange={(e) => setSize(e.target.value)}>
+            <option value={5}>5행</option>
+            <option value={10} selected>
+              10행
+            </option>
+            <option value={15}>15행</option>
+          </Form.Select>
         </Col>
       </Row>
 
