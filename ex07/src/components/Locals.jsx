@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Table, Button, InputGroup, Form, Row, Col } from "react-bootstrap";
+import Local from "./Local";
 
 const Locals = () => {
   const [locals, setLocals] = useState([]);
@@ -59,6 +60,7 @@ const Locals = () => {
             <td>장소명</td>
             <td>전화번호</td>
             <td>주소</td>
+            <td>위치</td>
           </tr>
         </thead>
         <tbody>
@@ -67,6 +69,9 @@ const Locals = () => {
               <td>{local.place_name}</td>
               <td>{local.phone}</td>
               <td>{local.address_name}</td>
+              <td>
+                <Local local={local} />
+              </td>
             </tr>
           ))}
         </tbody>
