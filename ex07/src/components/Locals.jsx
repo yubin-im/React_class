@@ -1,14 +1,15 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Table, Button } from "react-bootstrap";
+import { Table, Button, InputGroup, Form, Row, Col } from "react-bootstrap";
 
 const Locals = () => {
   const [locals, setLocals] = useState([]);
   const [page, setPage] = useState(1);
   const [end, setEnd] = useState(false);
+  const [query, setQuery] = useState("인하대학교");
 
   const callAPI = async () => {
-    const url = `https://dapi.kakao.com/v2/local/search/keyword.json?query=인하대학교&size=10&page=${page}`;
+    const url = `https://dapi.kakao.com/v2/local/search/keyword.json?query=${query}&size=10&page=${page}`;
     const config = {
       headers: {
         Authorization: "KakaoAK 29e9e1950348691f626373bb936f8182",
@@ -27,8 +28,31 @@ const Locals = () => {
     callAPI();
   }, [page]);
 
+  const onSubmit = (e) => {
+    e.preventDefault();
+    if (query === "") {
+      alert("검색어를 입력하세요!");
+    } else {
+      callAPI();
+    }
+  };
+
   return (
-    <div>
+    <div className="mx-5">
+      <Row className="mb-3">
+        <Col md={4}>
+          <form onSubmit={onSubmit}>
+            <InputGroup>
+              <Form.Control
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+              />
+              <Button type="submit">검색</Button>
+            </InputGroup>
+          </form>
+        </Col>
+      </Row>
+
       <Table striped bordered hover>
         <thead>
           <tr>
@@ -52,7 +76,9 @@ const Locals = () => {
           이전
         </Button>
         <span className="mx-3">{page}</span>
-        <Button onClick={() => setPage(page + 1)}>다음</Button>
+        <Button disabled={end} onClick={() => setPage(page + 1)}>
+          다음
+        </Button>
       </div>
     </div>
   );
