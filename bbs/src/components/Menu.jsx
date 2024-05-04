@@ -6,6 +6,7 @@ import { Route, Routes } from "react-router-dom";
 import About from "./About";
 import Books from "./book/Books";
 import Cart from "./book/Cart";
+import Login from "./user/Login";
 
 const Menu = () => {
   return (
@@ -23,7 +24,7 @@ const Menu = () => {
               <Nav.Link href="/books">도서검색</Nav.Link>
               <Nav.Link href="/cart">장바구니</Nav.Link>
               <Nav>
-                <Nav.Link href="#action2">로그인</Nav.Link>
+                <Nav.Link href="/login">로그인</Nav.Link>
               </Nav>
             </Nav>
           </Navbar.Collapse>
@@ -33,6 +34,7 @@ const Menu = () => {
         <Route path="/" element={<About />}></Route>
         <Route path="/books" element={<Books />}></Route>
         <Route path="/cart" element={<Cart />}></Route>
+        <Route path="/login" element={<Login />}></Route>
       </Routes>
     </>
   );
