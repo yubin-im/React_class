@@ -32,22 +32,20 @@ const Menu = () => {
             >
               <Nav.Link href="/books">도서검색</Nav.Link>
               <Nav.Link href="/cart">장바구니</Nav.Link>
-
-              {sessionStorage.getItem("email") ? (
-                <Nav>
-                  <Nav.Link href="#">
-                    {sessionStorage.getItem("email")}
-                  </Nav.Link>
-                  <Nav.Link href="#" onClick={onLogout}>
-                    로그아웃
-                  </Nav.Link>
-                </Nav>
-              ) : (
-                <Nav>
-                  <Nav.Link href="/login">로그인</Nav.Link>
-                </Nav>
-              )}
             </Nav>
+
+            {sessionStorage.getItem("email") ? (
+              <Nav>
+                <Nav.Link href="#">{sessionStorage.getItem("email")}</Nav.Link>
+                <Nav.Link href="#" onClick={onLogout}>
+                  로그아웃
+                </Nav.Link>
+              </Nav>
+            ) : (
+              <Nav>
+                <Nav.Link href="/login">로그인</Nav.Link>
+              </Nav>
+            )}
           </Navbar.Collapse>
         </Container>
       </Navbar>
